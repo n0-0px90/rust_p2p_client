@@ -1,4 +1,4 @@
-use std::net::TcpStream;
+use std::net::{Shutdown,TcpStream};
 use std::io::{Read,Write};
 
 fn write_stream(mut stream: TcpStream){
@@ -9,7 +9,6 @@ fn write_stream(mut stream: TcpStream){
         let _ = std::io::stdout().flush();
         std::io::stdin().read_line(&mut host_input).expect("Failed to read line.");
         let message = host_input.as_bytes();
-        //writes message to server
         stream.write(message).expect("failed to write message.");
     }
 }
