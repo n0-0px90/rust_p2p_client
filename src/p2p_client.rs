@@ -1,4 +1,4 @@
-use std::net::{TcpStream};
+use std::net::TcpStream;
 use std::io::{Read,Write};
 
 fn write_stream(mut stream: TcpStream){
