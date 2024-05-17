@@ -13,7 +13,6 @@ fn write_stream(mut stream: TcpStream){
     }
 }
 
-
 fn read_stream(mut stream: TcpStream){
     loop {
         let mut _net_buffer = [0u8; 1024];
