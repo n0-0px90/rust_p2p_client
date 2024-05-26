@@ -1,13 +1,14 @@
+use std::io::prelude::*;
 use std::net::TcpStream;
-use std::io::{Read,Write};
+use std::io::{Read,Write,stdin, stdout};
 
 fn write_stream(mut stream: TcpStream){
     loop {
         // Declares new string to write to, reads user input, stores it as bytes in array
         let mut host_input = String::new();
         print!("Client> ");
-        let _ = std::io::stdout().flush();
-        std::io::stdin().read_line(&mut host_input).expect("Failed to read line.");
+        let _ = stdout().flush();
+        stdin().read_line(&mut host_input).expect("Failed to read line.");
         let message = host_input.as_bytes();
         stream.write(message).expect("failed to write message.");
     }
@@ -32,9 +33,9 @@ fn outbound_handler(stream: TcpStream){
 //Entry Point
 fn main(){
     //connects to local host
-    let connection: TcpStream=TcpStream::connect("127.0.0.1:443").expect("Couldn't connect to server.");
+    let connection: TcpStream=TcpStream::connect("192.168.56.1:443").expect("Couldn't connect");
     let outbound_connection = connection.local_addr().unwrap();
-    println!("Connected to 127.0.0.1:443 from {}", outbound_connection);
+    println!("Connected to remote endpoint from {}", outbound_connection);
     //Loop for terminal chat window
     outbound_handler(connection);
 }
