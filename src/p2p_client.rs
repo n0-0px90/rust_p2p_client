@@ -33,9 +33,16 @@ fn outbound_handler(stream: TcpStream){
 //Entry Point
 fn main(){
     //connects to local host
-    let connection: TcpStream=TcpStream::connect("127.0.0.1:443").expect("Couldn't connect to server.");
-    let outbound_connection = connection.local_addr().unwrap();
-    println!("Connected to 127.0.0.1:443 from {}", outbound_connection);
-    //Loop for terminal chat window
-    outbound_handler(connection);
+    let connection=TcpStream::connect("127.0.0.1:443");
+    match connection{
+        Ok(connection)=>{
+            let outbound_connection = connection.local_addr().unwrap();
+            println!("[+] Connected to {} from {}", connection.peer_addr().unwrap(), outbound_connection);
+            //Loop for terminal chat window
+            outbound_handler(connection);
+        }
+        Err(err)=>{
+            eprintln!("[-] Error with connection: {:?}", err);
+        }
+    }
 }
